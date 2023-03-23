@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import Application from '@ioc:Adonis/Core/Application'
 import Book from "App/Models/Book";
+import User from "App/Models/User";
 
 export default class BooksController {
   public async index ({response, params}: HttpContextContract) {
@@ -165,6 +166,41 @@ export default class BooksController {
       return response
       .status(500)
       .send({message: err.messages, result: err, error: true})
+    }
+  }
+
+  public async publish ({params, response, auth}: HttpContextContract) {
+    try{
+      const session = await auth.use('api').authenticate()
+      if(!session){
+        return response
+          .status(401)
+          .send({message:'Your not authorized to access this api.', result: '', error: true})
+      }
+
+      const userName = session.$attributes.fullname
+      if(userName == 'Darth Vader'){
+        return response
+          .status(401)
+          .send({message:'Your not authorized to access this api.', result: '', error: true})
+      }
+
+      const book = await Book.findOrFail(params.id);
+      if(!book){
+        return response
+          .status(401)
+          .send({message:'No record found.', result: '', error: true})
+      }
+      book.status = true
+      await book.save();
+      return response
+          .status(200)
+          .send({ message: 'Success', result: book, error: false })
+
+    } catch (err) {
+      return response
+        .status(500)
+        .send({result : err, message: 'There`s something wrong with the server', error: true })
     }
   }
 
