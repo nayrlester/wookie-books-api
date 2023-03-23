@@ -54,8 +54,8 @@ export default class BooksController {
       ])
 
       const coverImage: any = request.file('image', {
-        size: '5mb',
-        extnames: ['docx', 'pdf', 'doc', 'xls', 'xlsx', 'csv'],
+        size: '15mb',
+        extnames: ['jpeg', 'png', 'jpg'],
       })
 
       if (!coverImage && !coverImage.isValid) {
@@ -92,6 +92,72 @@ export default class BooksController {
       await books.save();
       return response.status(200).send({
           message: "Congratulations!new books successfully created.",
+          result: books,
+          error: false,
+      })
+    }catch(err){
+      return response
+      .status(500)
+      .send({message: err.messages, result: err, error: true})
+    }
+  }
+
+  public async update({request, response, auth, params}: HttpContextContract) {
+    try{
+      const session = await auth.use('api').authenticate()
+      if(!session){
+        return response
+          .status(401)
+          .send({message:'Your not authorized to access this api.', result: '', error: true})
+      }
+
+      const sessionUser = session.$attributes.id
+      const { title, description, cover, price} = request.only([
+          'title',
+          'description',
+          'cover',
+          'price'
+      ])
+
+      const coverImage: any = request.file('image', {
+        size: '15mb',
+        extnames: ['jpeg', 'png', 'jpg'],
+      })
+
+      if (!coverImage && !coverImage.isValid) {
+        return response
+          .status(401)
+          .send({message:'invalid file.', result: [], error: true})
+      }
+
+      const imageFilename = `${coverImage.clientName}` 
+      await coverImage.move(Application.tmpPath('uploads'), {
+        name: imageFilename,
+        overwrite: true,
+      })
+
+      const registerSchema = schema.create({
+          title: schema.string({}),
+      })
+
+      await request.validate({
+        schema: registerSchema,
+        messages: {
+          'title.unique': '{{ field }} is required',
+        },
+      })
+
+      const books = await Book.findOrFail(params.id);
+      books.userId = sessionUser;
+      books.title = title;
+      books.description = description;
+      books.cover = cover;
+      books.image = imageFilename;
+      books.price = price;
+
+      await books.save();
+      return response.status(200).send({
+          message: "Congratulations!Books data successfully updated.",
           result: books,
           error: false,
       })
