@@ -35,6 +35,7 @@ Route.group(() => {
     Route.delete('user/:id', 'UsersController.destroy')
 
     Route.post('books', 'BooksController.create')
+    Route.put('books/:id', 'BooksController.update')
     Route.delete('books/:id', 'BooksController.destroy')
   }).middleware("auth:api");
 
