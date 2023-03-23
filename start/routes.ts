@@ -32,6 +32,6 @@ Route.group(() => {
     Route.get('user/:id', 'UsersController.show')
     Route.delete('user/:id', 'UsersController.destroy')
     Route.delete('books/:id', 'BooksController.destroy')
-}).middleware("auth:api");
+  }).middleware("auth:api");
 
 }).prefix("api");
