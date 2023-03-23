@@ -12,7 +12,7 @@ export default class AuthController {
             ])
 
             const token = await auth.use("api").attempt(username, password, {
-                expiresIn: "10 days",
+                expiresIn: "5 hours",
             });
             
             if(!token){
@@ -26,6 +26,7 @@ export default class AuthController {
             return token.toJSON();
 
         }catch(err: any){
+            console.log(err)
             return response
             .status(500)
             .send({message: "There's something wrong in the server. Please contact the admin.", result: err, error: true})
@@ -48,11 +49,7 @@ export default class AuthController {
                 fullname: schema.string({}),
                 email: schema.string({}, [
                     rules.email(),
-                    rules.unique({ table: 'merchants', column: 'email' })
-                ]),
-                mobile_num: schema.string({}, [
-                    rules.mobile(),
-                    rules.unique({ table: 'merchants', column: 'mobile_num' })
+                    rules.unique({ table: 'users', column: 'email' })
                 ]),
                 password: schema.string({ trim: true })
             })
@@ -81,8 +78,8 @@ export default class AuthController {
 
         }catch(err: any){
             return response
-            .status(500)
-            .send({message: "There's something wrong in the server. Please contact the admin.", result: err, error: true})
+            .status(401)
+            .send({message: err.messages, result: [], error: true})
         }
         
     }

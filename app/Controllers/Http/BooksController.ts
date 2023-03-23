@@ -2,15 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Book from "App/Models/Book";
 
 export default class BooksController {
-  public async index ({response, auth, params}: HttpContextContract) {
+  public async index ({response, params}: HttpContextContract) {
     try{
-      const session = await auth.use('api').authenticate()
-      if(!session){
-        return response
-          .status(401)
-          .send({message:'Your not authorized to access this api.', result: '', error: true})
-      }
-
       const books = await Book
                           .query()
                           .where('title', 'LIKE', `%${params.title}%`)
@@ -26,15 +19,8 @@ export default class BooksController {
     }
   }
 
-  public async show({response, auth, params}: HttpContextContract) {
+  public async show({response, params}: HttpContextContract) {
     try{
-      const session = await auth.use('api').authenticate()
-      if(!session){
-        return response
-          .status(401)
-          .send({message:'Your not authorized to access this api.', result: '', error: true})
-      }
-
       const books = await Book.find(params.id);
 
       return response
@@ -68,6 +54,7 @@ export default class BooksController {
       return response
           .status(200)
           .send({ message: 'Success', result: book, error: false })
+
     } catch (err) {
       return response
         .status(500)

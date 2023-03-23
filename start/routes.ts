@@ -30,8 +30,12 @@ Route.group(() => {
   Route.group(() => {
     Route.get('user', 'UsersController.index')
     Route.get('user/:id', 'UsersController.show')
+    Route.post('user', 'UsersController.create')
+    Route.put('user/:id', 'UsersController.update')
     Route.delete('user/:id', 'UsersController.destroy')
+
+    Route.post('books', 'BooksController.create')
     Route.delete('books/:id', 'BooksController.destroy')
-}).middleware("auth:api");
+  }).middleware("auth:api");
 
 }).prefix("api");
