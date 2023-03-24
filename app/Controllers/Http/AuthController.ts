@@ -3,6 +3,97 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import User from "App/Models/User";
 
 export default class AuthController {
+    /**
+    * @swagger
+    * /api/login:
+    *   post:
+    *     tags:
+    *       - Auth
+    *     security: []
+    *     description: User Login
+    *     consumes:
+    *       - multipart/form-data
+    *     parameters:
+    *       - name: username
+    *         description: User username.
+    *         in: formData
+    *         required: true
+    *         type: string
+    *       - name: password
+    *         description: User password.
+    *         in: formData
+    *         required: true
+    *         type: string
+    *         format: password
+    *     produces:
+    *       - application/json
+    *     responses:
+    *       200:
+    *         description: Success
+    *       504:
+    *         description: Can't connect to Server
+    *       400:
+    *         description: Bad Request
+    *       401:
+    *         description: Account Activation
+    *
+    * /api/admin/register:
+    *   post:
+    *     tags:
+    *       - Registration
+    *     security:
+    *       - bearerAuth: []
+    *     description: Register User
+    *     consumes:
+    *       - multipart/form-data
+    *     parameters:
+    *       - name: email
+    *         description: User email.
+    *         in: formData
+    *         required: true
+    *         type: string
+    *       - name: username
+    *         description: Username.
+    *         in: formData
+    *         required: true
+    *         type: string
+    *       - name: fullname
+    *         description: User full name.
+    *         in: formData
+    *         required: true
+    *         type: string
+    *       - name: password
+    *         description: User password.
+    *         in: formData
+    *         required: true
+    *         type: string
+    *     produces:
+    *       - application/json
+    *     responses:
+    *       200:
+    *         description: Success
+    *       504:
+    *         description: Can't connect to Server
+    *       400:
+    *         description: Bad Request
+    *
+    * /api/logout:
+    *   post:
+    *     tags:
+    *       - Auth
+    *     security:
+    *       - bearerAuth: []
+    *     description: Logout User Session
+    *     produces:
+    *       - application/json
+    *     responses:
+    *       200:
+    *         description: Success
+    *       504:
+    *         description: Can't connect to Server
+    *       400:
+    *         description: Bad Request
+    */
     
     public async login({ request, auth, response}: HttpContextContract) {
         try{
@@ -15,21 +106,14 @@ export default class AuthController {
                 expiresIn: "5 hours",
             });
             
-            if(!token){
-                return response.status(401).send({
-                    message: 'Invalid credentials. Username or password is incorrect.',
-                    result: '',
-                    error: true,
-                })
-            }
-
             return token.toJSON();
 
         }catch(err: any){
-            console.log(err)
-            return response
-            .status(500)
-            .send({message: "There's something wrong in the server. Please contact the admin.", result: err, error: true})
+            return response.status(401).send({
+                message: 'Invalid credentials. Username or password is incorrect.',
+                result: '',
+                error: true,
+            })
         }
     }
 
