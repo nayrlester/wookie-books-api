@@ -2,6 +2,8 @@ AdonisJS is a fully-featured backend framework for Node.js. The framework is cre
 
 It is one of the rarest framework in the Node.js community that ships with a suite of first party packages that helps you create and ship products without wasting hundreds of hours in assembling different npm packages.
 
+adonisjs documentation : https://docs.adonisjs.com/guides/introduction
+
 How to run
 - Create a database and add the database creadentials in your .env file
 type in your terminal : 
