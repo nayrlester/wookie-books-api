@@ -17,7 +17,7 @@ type in your terminal :
 
 I use SWAGGER DOCS for documentation. You can check the documentation in your browser url localhost:3333
 
-In swagger docs authorization , you need to add "bearer <space> <token>"
+In swagger docs authorization , you need to add "bearer < space > < token >"
 
 All API's is listed in swagger docs
 
