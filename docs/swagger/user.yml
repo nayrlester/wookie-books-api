@@ -3,7 +3,8 @@
     tags:
       - User
     description: List of Users
-    security: []
+    security:
+      - bearerAuth: []
     produces:
       - application/json
     responses:
