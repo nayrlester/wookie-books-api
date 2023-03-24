@@ -31,11 +31,11 @@ Route.group(() => {
   Route.get('search-books/:title', 'BooksController.index')
 
   Route.group(() => {
-    Route.get('user', 'UsersController.index')
+    Route.get('users', 'UsersController.index')
     Route.get('user/:id', 'UsersController.show')
     Route.post('user', 'UsersController.create')
-    Route.put('user/:id', 'UsersController.update')
-    Route.delete('user/:id', 'UsersController.destroy')
+    Route.put('user-update/:id', 'UsersController.update')
+    Route.delete('user-delete/:id', 'UsersController.destroy')
 
     Route.post('books', 'BooksController.create')
     Route.get('books/:id', 'BooksController.show')

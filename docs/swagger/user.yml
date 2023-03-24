@@ -1,0 +1,160 @@
+/api/users:
+  get:
+    tags:
+      - User
+    description: List of Users
+    security: []
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      504:
+        description: Can't connect to Server
+      500:
+        description: Internal Server error
+      400:
+        description: Bad Request
+   
+/api/user/{id}:
+  get:
+    tags:
+      - User
+    description: User details by id
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      504:
+        description: Can't connect to Server
+      500:
+        description: Internal Server error
+      400:
+        description: Bad Request
+
+/api/user:
+  post:
+    tags:
+      - User
+    security:
+      - bearerAuth: []
+    description: Create new user
+    consumes:
+      - multipart/form-data
+    parameters:
+      - name: email
+        description: User email.
+        in: formData
+        required: true
+        type: string
+      - name: password
+        description: User password.
+        in: formData
+        required: true
+        type: string
+      - name: username
+        description: User username.
+        in: formData
+        required: true
+        type: string
+      - name: fullname
+        description: User fullname.
+        in: formData
+        required: true
+        type: string
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      504:
+        description: Can't connect to Server
+      500:
+        description: Internal Server error
+      400:
+        description: Bad Request
+
+/api/user-update/{id}:
+  put:
+    tags:
+      - User
+    security:
+      - bearerAuth: []
+    description: Update user details
+    consumes:
+      - multipart/form-data
+    parameters:
+      - in: path
+        name: id
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - name: email
+        description: User email.
+        in: formData
+        required: true
+        type: string
+      - name: password
+        description: User password.
+        in: formData
+        required: true
+        type: string
+      - name: username
+        description: User username.
+        in: formData
+        required: true
+        type: string
+      - name: fullname
+        description: User fullname.
+        in: formData
+        required: true
+        type: string
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      504:
+        description: Can't connect to Server
+      500:
+        description: Internal Server error
+      400:
+        description: Bad Request
+
+/api/user-delete/{id}:
+  delete:
+    tags:
+      - User
+    security:
+      - bearerAuth: []
+    description: Delete user
+    consumes:
+      - multipart/form-data
+    parameters:
+      - in: path
+        name: id
+        description: user id
+        required: true
+        schema:
+          type: integer
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      504:
+        description: Can't connect to Server
+      500:
+        description: Internal Server error
+      400:
+        description: Bad Request

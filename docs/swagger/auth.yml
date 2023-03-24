@@ -34,8 +34,7 @@
   post:
     tags:
       - Registration
-    security:
-      - bearerAuth: []
+    security: []
     description: Register User
     consumes:
       - multipart/form-data
