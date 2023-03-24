@@ -4,9 +4,10 @@ It is one of the rarest framework in the Node.js community that ships with a sui
 
 adonisjs documentation : https://docs.adonisjs.com/guides/introduction
 
-How to run
-- Create a database and add the database creadentials in your .env file
-type in your terminal : 
+How to run :
+- Create a database and add the database credentials in your .env file
+
+Run in your terminal : 
 - run -> npm init
 - run -> npm install
 - run -> node ace migration:run
