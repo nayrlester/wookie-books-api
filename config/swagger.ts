@@ -11,6 +11,10 @@ export default {
 	middleware: [], // middlewares array, for protect your swagger docs and spec endpoints
 	options: {
 		swaggerDefinition: {
+			// openapi: '3.0.0',
+			info: {
+				title: 'WOOKIE BOOKS API DOCS',
+			},
 			securitySchemes: {
 				bearerAuth: {
 				type: 'http',
@@ -21,9 +25,9 @@ export default {
 
 			securityDefinitions: {
 				bearerAuth: {
-				type: 'apiKey',
-				in: 'header',
-				name: 'Authorization'
+					type: 'apiKey',
+					in: 'header',
+					name: 'Authorization'
 				},
 			},
 		},
@@ -36,5 +40,5 @@ export default {
 		basePath: '/'
 	},
 	mode: process.env.NODE_ENV === 'production' ? 'PRODUCTION' : 'RUNTIME',
-  specFilePath: 'docs/swagger.json'
+  	specFilePath: 'docs/swagger.json'
 } as SwaggerConfig

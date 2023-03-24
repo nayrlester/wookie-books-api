@@ -28,8 +28,7 @@ Route.group(() => {
   Route.post("register", "AuthController.register");
   Route.post("login", "AuthController.login");
   Route.post("logout", "AuthController.logout");
-  Route.get('books/:title', 'BooksController.index')
-  Route.get('books/:id', 'BooksController.show')
+  Route.get('search-books/:title', 'BooksController.index')
 
   Route.group(() => {
     Route.get('user', 'UsersController.index')
@@ -39,8 +38,9 @@ Route.group(() => {
     Route.delete('user/:id', 'UsersController.destroy')
 
     Route.post('books', 'BooksController.create')
-    Route.put('books/:id', 'BooksController.update')
-    Route.post('publish-books/:id', 'BooksController.publish')
+    Route.get('books/:id', 'BooksController.show')
+    Route.put('books-update/:id', 'BooksController.update')
+    Route.put('publish-books/:id', 'BooksController.publish')
     Route.delete('unpublish-books/:id', 'BooksController.destroy')
   }).middleware("auth:api");
 
