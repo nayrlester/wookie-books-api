@@ -19,6 +19,7 @@ I use SWAGGER DOCS for documentation. You can check the documentation in your br
 In swagger docs authorization , you need to add "bearer <space> <token>"
 All API's is listed in swagger docs
 
+swagger documentation : https://swagger.io/docs/
 
 Note: Darth Vader(fullname) user will not be able to publish his books when using the api  "api/publish-books/:id"
 
