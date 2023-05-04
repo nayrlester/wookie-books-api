@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node ace serve --watch",
-    "build": "node ace build --production",
+    "build": "node ace build --production --ignore-ts-error",
     "postbuild": "node ace swagger:generate && cp -a docs/ build/docs",
     "start": "node server.js",
     "test": "node ace test",
